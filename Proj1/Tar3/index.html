@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clock Example</title>
+</head>
+<body>
+  <h1>Create a Clock</h1>
+  <form id="clockForm">
+    <label for="hours">Hours:</label>
+    <input type="number" id="hours" min="0" max="23" placeholder="Enter hours" required style="width: 200px; height: 30px; font-size: 16px;"><br><br>
+
+    <label for="minutes">Minutes:</label>
+    <input type="number" id="minutes" min="0" max="59" placeholder="Enter minutes" required style="width: 200px; height: 30px; font-size: 16px;"><br><br>
+
+    <label for="seconds">Seconds:</label>
+    <input type="number" id="seconds" min="0" max="59" placeholder="Enter seconds" required style="width: 200px; height: 30px; font-size: 16px;"><br><br>
+
+    <label for="country">Country:</label>
+    <input type="text" id="country" placeholder="Enter country name" required style="width: 200px; height: 30px; font-size: 16px;"><br><br>
+
+    <button type="submit">Add Clock</button>
+  </form>
+
+  <div id="output"></div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
