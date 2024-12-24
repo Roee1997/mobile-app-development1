@@ -1,0 +1,114 @@
+/* עיצוב כללי לעמוד */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* כותרת */
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #222;
+}
+
+/* טבלה */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th,
+table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* תמונת פרופיל */
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* כפתורים */
+button {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* כפתור עריכה */
+button[style*="color: blue"] {
+    background-color: #e7f3ff;
+    color: #007bff;
+}
+
+button[style*="color: blue"]:hover {
+    background-color: #d0e7ff;
+}
+
+/* כפתור מחיקה */
+button[style*="color: red"] {
+    background-color: #ffe6e6;
+    color: #d9534f;
+}
+
+button[style*="color: red"]:hover {
+    background-color: #f5c6c6;
+}
+
+/* כפתור משחק */
+button[style*="color: green"] {
+    background-color: #e6ffe6;
+    color: #28a745;
+}
+
+button[style*="color: green"]:hover {
+    background-color: #c8f5c8;
+}
+
+/* טקסט "אין קישור" */
+p[style*="color: gray"] {
+    margin: 0;
+    font-size: 14px;
+    color: #999;
+}
+
+/* הגדרת כיוון כללי עבור כל האלמנטים באתר */
+body {
+    direction: rtl; /* כיוון מימין לשמאל */
+    text-align: right; /* יישור טקסט לימין */
+  }
+  
+  /* במידת הצורך, להגדיר אלמנטים ספציפיים */
+  label, p, span, div {
+    direction: rtl;
+    unicode-bidi: embed; /* מניעת בלבול בין כיווני שפות שונות */
+  }
+  

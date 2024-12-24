@@ -1,0 +1,49 @@
+/* עיצוב כללי לניווט */
+nav {
+  display: flex;
+  justify-content: center; /* ממרכז את הכפתורים */
+  align-items: center; /* ממרכז אנכית אם יש שינוי גובה */
+  gap: 15px; /* רווח אחיד בין הכפתורים */
+  margin: 20px 0; /* ריווח בין הניווט לשאר האלמנטים בעמוד */
+}
+
+/* עיצוב כפתורים */
+#login-button,
+#register-button,
+nav button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff; /* צבע כחול */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#login-button:hover,
+#register-button:hover,
+nav button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); /* הגדלה קלה בעת מעבר עכבר */
+}
+
+#login-button:active,
+#register-button:active,
+nav button:active {
+  background-color: #004085;
+  transform: scale(0.95); /* הקטנה קלה בעת לחיצה */
+}
+
+/* עיצוב ה-div */
+.dynamic-container {
+  display: flex;
+  justify-content: center; /* מרכז אופקי */
+  align-items: center; /* מרכז אנכי */
+  height: 50%; /* מלא את גובה ה-container */
+  width: 100%; /* מלא את רוחב ה-container */
+  box-sizing: border-box;
+  background-color: #f4f4f9; /* צבע רקע קל */
+}
+
