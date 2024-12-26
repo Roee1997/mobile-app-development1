@@ -1,4 +1,4 @@
-/* עיצוב כללי לעמוד */
+/* General page styling */
 body {
   margin: 0;
   padding: 0;
@@ -10,13 +10,12 @@ body {
   box-sizing: border-box;
 }
 
-/* הגדרה גלובלית לכל האלמנטים */
+/* Global box-sizing for all elements */
 * {
-  box-sizing: border-box; /* כל האלמנטים יכללו padding ו-border בחישוב ה-width */
+  box-sizing: border-box; /* Ensures padding and border are included in the element's width */
 }
 
-
-/* טופס מרכזי */
+/* Central form styling */
 form {
   max-width: 400px;
   width: 100%;
@@ -26,7 +25,8 @@ form {
   background-color: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-/* כותרות לטופס */
+
+/* Form headers */
 form h2 {
   text-align: center;
   color: #333;
@@ -35,7 +35,7 @@ form h2 {
   margin-bottom: 20px;
 }
 
-/* תוויות */
+/* Labels */
 form label {
   display: block;
   font-weight: bold;
@@ -43,7 +43,7 @@ form label {
   color: #555;
 }
 
-/* שדות קלט */
+/* Input fields */
 form input[type="text"],
 form input[type="password"],
 form input[type="email"],
@@ -61,14 +61,14 @@ form input[type="file"] {
   background-color: #fff;
 }
 
-/* אפקט בפוקוס */
+/* Focus effect for input fields */
 form input:focus {
   border-color: #007bff;
   outline: none;
   box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
 }
 
-/* הודעות שגיאה */
+/* Error messages */
 .invalid-feedback {
   color: red;
   font-size: 12px;
@@ -76,7 +76,7 @@ form input:focus {
   margin-bottom: 10px;
 }
 
-/* כפתור */
+/* Button styling */
 form button {
   width: 100%;
   padding: 10px;
@@ -90,18 +90,17 @@ form button {
   transition: background-color 0.3s ease;
 }
 
-/* אפקט לכפתור */
+/* Button hover effect */
 form button:hover {
   background-color: #0056b3;
 }
 
-/* אפקט לחיצה */
+/* Button active effect */
 form button:active {
   background-color: #004085;
-}/* הגדרת כיוון כללי עבור כל האלמנטים באתר */
+}
 
-
-/* שדות קלט */
+/* Input fields with box-sizing adjustment */
 form input[type="text"],
 form input[type="password"],
 form input[type="email"],
@@ -117,5 +116,5 @@ form input[type="file"] {
   font-size: 14px;
   color: #333;
   background-color: #fff;
-  box-sizing: border-box; /* מבטיח שה-padding לא יגלוש */
+  box-sizing: border-box; /* Ensures padding doesn't overflow */
 }

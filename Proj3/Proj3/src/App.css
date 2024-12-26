@@ -36,14 +36,18 @@ nav button:active {
   transform: scale(0.95); /* הקטנה קלה בעת לחיצה */
 }
 
-/* עיצוב ה-div */
-.dynamic-container {
-  display: flex;
-  justify-content: center; /* מרכז אופקי */
-  align-items: center; /* מרכז אנכי */
-  height: 50%; /* מלא את גובה ה-container */
-  width: 100%; /* מלא את רוחב ה-container */
-  box-sizing: border-box;
-  background-color: #f4f4f9; /* צבע רקע קל */
-}
 
+.dynamic-container {
+  width: 120%; /* התאמת רוחב למרכז הדף */
+  margin: 20px auto; /* ריווח עליון ותחתון, מרכז את ה-div */
+  padding: 20px; /* ריווח פנימי */
+  box-sizing: border-box; /* כולל padding בחישוב הגודל */
+  background-color: #fff; /* רקע לבן */
+  border: 1px solid #ddd; /* גבול עדין */
+  border-radius: 8px; /* פינות מעוגלות */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* צל */
+  overflow-x: auto; /* גלילה אופקית במקרה שהתוכן חורג */
+  overflow-y: visible; /* מאפשר גובה דינמי לתוכן */
+  height: auto; /* מאפשר גובה דינמי בהתאם לתוכן */
+  max-width: 100%; /* מונע חרגת תוכן מהרוחב */
+}

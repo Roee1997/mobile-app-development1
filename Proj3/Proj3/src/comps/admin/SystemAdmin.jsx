@@ -10,7 +10,7 @@ function SystemAdmin({ users, onEditUser, onDeleteUser }) {
     };
 
     const handleDeleteClick = (email) => {
-        if (window.confirm("האם אתה בטוח שברצונך למחוק משתמש זה?")) {
+        if (window.confirm("Are you sure you want to delete this user?")) {
             onDeleteUser(email);
         }
     };
@@ -19,18 +19,18 @@ function SystemAdmin({ users, onEditUser, onDeleteUser }) {
         <div>
             {!selectedUser ? (
                 <>
-                    <h2>ניהול משתמשים</h2>
+                    <h2>User Management</h2>
                     <table border="1" style={{ width: "100%", textAlign: "center" }}>
                         <thead>
                             <tr>
-                                <th>תמונה</th>
-                                <th>שם משתמש</th>
-                                <th>שם מלא</th>
-                                <th>תאריך לידה</th>
-                                <th>כתובת</th>
-                                <th>דוא"ל</th>
-                                <th>משחק אהוב</th>
-                                <th>פעולות</th>
+                                <th>Image</th>
+                                <th>Username</th>
+                                <th>Full Name</th>
+                                <th>Date of Birth</th>
+                                <th>Address</th>
+                                <th>Email</th>
+                                <th>Favorite Game</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,7 +39,7 @@ function SystemAdmin({ users, onEditUser, onDeleteUser }) {
                                     <td>
                                         <img
                                             src={user.profileImage}
-                                            alt="תמונת פרופיל"
+                                            alt="Profile Image"
                                             style={{ width: "50px", height: "50px", borderRadius: "50%" }}
                                         />
                                     </td>
@@ -52,12 +52,12 @@ function SystemAdmin({ users, onEditUser, onDeleteUser }) {
                                         {user.favoriteGameLink ? (
                                             <button
                                                 onClick={() => window.open(user.favoriteGameLink, "_blank")}
-                                                style={{ color: "green" }}
+                                                style={{ color: "black" }}
                                             >
-                                                משחק
+                                                Game
                                             </button>
                                         ) : (
-                                            <p style={{ color: "gray" }}>אין קישור</p>
+                                            <p style={{ color: "gray" }}>No Link</p>
                                         )}
                                     </td>
 
@@ -67,13 +67,13 @@ function SystemAdmin({ users, onEditUser, onDeleteUser }) {
                                             style={{ marginRight: "5px", color: "blue" }}
                                             onClick={() => handleEditClick(user)}
                                         >
-                                            עריכה
+                                            Edit
                                         </button>
                                         <button
                                             style={{ color: "red" }}
                                             onClick={() => handleDeleteClick(user.email)}
                                         >
-                                            מחיקה
+                                            Delete
                                         </button>
                                     </td>
                                 </tr>

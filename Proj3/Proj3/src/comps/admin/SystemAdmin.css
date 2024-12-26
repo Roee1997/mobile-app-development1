@@ -1,4 +1,4 @@
-/* עיצוב כללי לעמוד */
+/* General page styling */
 body {
     margin: 0;
     padding: 0;
@@ -6,16 +6,17 @@ body {
     background-color: #f4f4f9;
     color: #333;
     line-height: 1.6;
+    text-align: left; /* Align text to the left */
 }
 
-/* כותרת */
+/* Header */
 h2 {
     text-align: center;
     margin-top: 20px;
     color: #222;
 }
 
-/* טבלה */
+/* Table */
 table {
     width: 90%;
     margin: 20px auto;
@@ -45,7 +46,7 @@ table tr:hover {
     background-color: #f1f1f1;
 }
 
-/* תמונת פרופיל */
+/* Profile image */
 img {
     width: 50px;
     height: 50px;
@@ -53,7 +54,7 @@ img {
     object-fit: cover;
 }
 
-/* כפתורים */
+/* Buttons */
 button {
     padding: 8px 12px;
     font-size: 14px;
@@ -63,7 +64,7 @@ button {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* כפתור עריכה */
+/* Edit button */
 button[style*="color: blue"] {
     background-color: #e7f3ff;
     color: #007bff;
@@ -73,7 +74,7 @@ button[style*="color: blue"]:hover {
     background-color: #d0e7ff;
 }
 
-/* כפתור מחיקה */
+/* Delete button */
 button[style*="color: red"] {
     background-color: #ffe6e6;
     color: #d9534f;
@@ -83,32 +84,32 @@ button[style*="color: red"]:hover {
     background-color: #f5c6c6;
 }
 
-/* כפתור משחק */
+/* Game button */
 button[style*="color: green"] {
     background-color: #e6ffe6;
-    color: #28a745;
+    color: #00ff3c;
 }
 
 button[style*="color: green"]:hover {
     background-color: #c8f5c8;
 }
 
-/* טקסט "אין קישור" */
+/* "No Link" text */
 p[style*="color: gray"] {
     margin: 0;
     font-size: 14px;
     color: #999;
 }
 
-/* הגדרת כיוון כללי עבור כל האלמנטים באתר */
+/* General text direction for all elements on the website */
 body {
-    direction: rtl; /* כיוון מימין לשמאל */
-    text-align: right; /* יישור טקסט לימין */
-  }
-  
-  /* במידת הצורך, להגדיר אלמנטים ספציפיים */
-  label, p, span, div {
-    direction: rtl;
-    unicode-bidi: embed; /* מניעת בלבול בין כיווני שפות שונות */
-  }
-  
+    direction: ltr; /* Left-to-right text direction */
+    text-align: left; /* Align text to the left */
+}
+
+/* Specific element styling if necessary */
+label, p, span, div {
+    direction: ltr; /* Left-to-right text direction */
+    unicode-bidi: embed; /* Prevent text direction conflicts */
+}
+

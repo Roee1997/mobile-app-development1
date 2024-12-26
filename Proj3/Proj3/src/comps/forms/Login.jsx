@@ -8,19 +8,18 @@ function Login({ onLogin }) {
     const validateForm = () => {
         const newErrors = {};
 
-        // בדיקת שם משתמש
+        // Validate username
         if (
             !formData.username ||
             formData.username.length > 60 ||
             !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/.test(formData.username)
         ) {
-            newErrors.username = "שם משתמש חייב להכיל אותיות לועזיות בלבד, מספרים ותווים מיוחדים, ולא יעלה על 60 תווים.";
+            newErrors.username = "Username must contain only alphanumeric characters, special characters, and be no more than 60 characters.";
         }
 
-
-        // בדיקת סיסמה
+        // Validate password
         if (
-            formData.password !== "ad12343211ad" && // חריגה עבור סיסמת האדמין
+            formData.password !== "ad12343211ad" && // Exception for admin password
             (
                 !formData.password ||
                 formData.password.length < 7 ||
@@ -31,23 +30,22 @@ function Login({ onLogin }) {
             )
         ) {
             newErrors.password =
-                "סיסמה חייבת להיות בין 7 ל-12 תווים, להכיל לפחות אות גדולה, מספר ותו מיוחד.";
+                "Password must be between 7 and 12 characters, contain at least one uppercase letter, one number, and one special character.";
         }
 
-
         setErrors(newErrors);
-        return Object.keys(newErrors).length === 0; // האם כל השדות תקינים
+        return Object.keys(newErrors).length === 0; // Check if all fields are valid
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // ביצוע ולידציה
+        // Perform validation
         if (!validateForm()) {
             return;
         }
 
-        // בדיקת פרטי אדמין
+        // Check admin credentials
         if (formData.username === "admin" && formData.password === "ad12343211ad") {
             console.log("Admin login detected");
             const adminUser = {
@@ -58,7 +56,7 @@ function Login({ onLogin }) {
             return;
         }
 
-        // בדיקת משתמשים רגילים ב-localStorage
+        // Check regular user credentials in localStorage
         const users = JSON.parse(localStorage.getItem("users")) || [];
         const user = users.find(
             (u) => u.username === formData.username && u.password === formData.password
@@ -66,10 +64,10 @@ function Login({ onLogin }) {
 
         if (user) {
             console.log("Regular user login detected");
-            onLogin(user); // קריאה לפונקציה של ההורה
+            onLogin(user); // Call parent function
         } else {
             console.log("Login failed - incorrect username or password");
-            setErrors({ general: "שם משתמש או סיסמה אינם נכונים." });
+            setErrors({ general: "Incorrect username or password." });
         }
     };
 
@@ -80,9 +78,9 @@ function Login({ onLogin }) {
     return (
         <div className="container">
             <form onSubmit={handleSubmit}>
-                <h2>התחברות</h2>
+                <h2>Login</h2>
 
-                <label>שם משתמש:</label>
+                <label>Username:</label>
                 <input
                     type="text"
                     name="username"
@@ -92,7 +90,7 @@ function Login({ onLogin }) {
                 {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
                 <br />
 
-                <label>סיסמה:</label>
+                <label>Password:</label>
                 <input
                     type="password"
                     name="password"
@@ -103,7 +101,7 @@ function Login({ onLogin }) {
                 <br />
 
                 {errors.general && <p style={{ color: "red" }}>{errors.general}</p>}
-                <button type="submit">כניסה</button>
+                <button type="submit">Login</button>
             </form>
         </div>
 

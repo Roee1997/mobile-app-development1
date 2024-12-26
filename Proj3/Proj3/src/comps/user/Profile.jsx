@@ -1,54 +1,67 @@
 import React from "react";
+import './user.css';
 
 function Profile({ user, onLogout, onEditDetails }) {
     return (
-        <div style={{ textAlign: "center", margin: "20px" }}>
+        <div className="profile-container">
             {user ? (
                 <>
-                    <h2>פרופיל משתמש</h2>
-                    {/* הצגת תמונת פרופיל */}
+                    <h2>User Profile</h2>
                     {user.profileImage ? (
                         <img
                             src={user.profileImage}
-                            alt="תמונת פרופיל"
-                            style={{ width: "150px", height: "150px", borderRadius: "50%" }}
+                            alt="Profile Image"
                         />
                     ) : (
-                        <p>אין תמונת פרופיל</p>
+                        <p>No profile image available</p>
                     )}
-                    <p>שם משתמש: {user.username}</p>
-                    <p>שם פרטי: {user.firstName}</p>
-                    <p>שם משפחה: {user.lastName}</p>
-                    <p>אימייל: {user.email}</p>
-                    <p>תאריך לידה: {user.dateOfBirth}</p>
-                    <p>עיר: {user.city}</p>
-                    <p>רחוב: {user.street}</p>
-                    <p>מספר בית: {user.houseNumber}</p>
+                    <table className="profile-info">
+                        <tbody>
+                            <tr>
+                                <td>Username:</td>
+                                <td>{user.username}</td>
+                            </tr>
+                            <tr>
+                                <td>First Name:</td>
+                                <td>{user.firstName}</td>
+                            </tr>
+                            <tr>
+                                <td>Last Name:</td>
+                                <td>{user.lastName}</td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td>{user.email}</td>
+                            </tr>
+                            <tr>
+                                <td>Date of Birth:</td>
+                                <td>{user.dateOfBirth}</td>
+                            </tr>
+                            <tr>
+                                <td>City:</td>
+                                <td>{user.city}</td>
+                            </tr>
+                            <tr>
+                                <td>Street:</td>
+                                <td>{user.street}</td>
+                            </tr>
+                            <tr>
+                                <td>House Number:</td>
+                                <td>{user.houseNumber}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     {user.favoriteGameLink ? (
-                        <button
-                            onClick={() => window.open(user.favoriteGameLink, "_blank")}
-                            style={{ marginTop: "10px" }}
-                        >
-                            משחק אהוב
+                        <button onClick={() => window.open(user.favoriteGameLink, "_blank")}>
+                            Favorite Game
                         </button>
                     ) : (
-                        <p style={{ color: "gray" }}>לא הוזן קישור למשחק אהוב</p>
+                        <p style={{ color: "gray" }}>No favorite game link provided</p>
                     )}
-                    <br/>
-                    <button onClick={onEditDetails} style={{ marginTop: "10px" }}>
-                        עריכת פרטים
-                    </button>
-                    <button
-                        onClick={onLogout}
-                        style={{ marginLeft: "10px", marginTop: "10px" }}
-                    >
-                        התנתק
-                    </button>
-
-                    <br />
+                    <button onClick={onEditDetails}>Edit Details</button>
                 </>
             ) : (
-                <p>יש להתחבר למערכת</p>
+                <p>Please log in to the system</p>
             )}
         </div>
     );

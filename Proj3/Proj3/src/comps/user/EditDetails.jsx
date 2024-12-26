@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import './user.css'
 
 function EditDetails({ currentUser, onUpdateUser, onBackToProfile }) {
     const [formData, setFormData] = useState({
@@ -12,11 +12,11 @@ function EditDetails({ currentUser, onUpdateUser, onBackToProfile }) {
         city: currentUser.city || "",
         street: currentUser.street || "",
         houseNumber: currentUser.houseNumber || "",
-        profileImage: currentUser.profileImage || null, // שמירת התמונה הקיימת
-        favoriteGameLink: currentUser.favoriteGameLink || "", // קישור למשחק אהוב
+        profileImage: currentUser.profileImage || null, // Store the existing image
+        favoriteGameLink: currentUser.favoriteGameLink || "", // Link to favorite game
     });
 
-    const [errors, setErrors] = useState({}); // אחסון שגיאות לפי שדה
+    const [errors, setErrors] = useState({}); // Store validation errors by field
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -25,7 +25,7 @@ function EditDetails({ currentUser, onUpdateUser, onBackToProfile }) {
             if (file) {
                 const reader = new FileReader();
                 reader.onloadend = () => {
-                    setFormData({ ...formData, profileImage: reader.result }); // שמירת התמונה בפורמט Base64
+                    setFormData({ ...formData, profileImage: reader.result }); // Store the image in Base64 format
                 };
                 reader.readAsDataURL(file);
             }
@@ -37,16 +37,21 @@ function EditDetails({ currentUser, onUpdateUser, onBackToProfile }) {
     const validateForm = () => {
         let newErrors = {};
 
-        // בדיקות לכל השדות
+        // Validation for all fields
         if (!formData.firstName || formData.firstName.length < 2) {
-            newErrors.firstName = "שם פרטי חייב להכיל לפחות שני תווים.";
+            newErrors.firstName = "First name must be at least 2 characters.";
         }
         if (!formData.lastName || formData.lastName.length < 2) {
-            newErrors.lastName = "שם משפחה חייב להכיל לפחות שני תווים.";
+            newErrors.lastName = "Last name must be at least 2 characters.";
         }
-        if (!formData.username || formData.username.length > 60) {
-            newErrors.username = "שם משתמש חייב להיות עד 60 תווים.";
+        if (
+            !formData.username ||
+            formData.username.length > 60 ||
+            !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/.test(formData.username)
+        ) {
+            newErrors.username = "Username must be up to 60 characters and can only contain letters, numbers, and special characters.";
         }
+        
         if (
             !formData.password ||
             formData.password.length < 7 ||
@@ -56,26 +61,26 @@ function EditDetails({ currentUser, onUpdateUser, onBackToProfile }) {
             !/[@$!%*?&#]/.test(formData.password)
         ) {
             newErrors.password =
-                "סיסמה חייבת להיות בין 7 ל-12 תווים, להכיל לפחות אות גדולה, מספר ותו מיוחד.";
+                "Password must be between 7 and 12 characters, contain at least one uppercase letter, one number, and one special character.";
         }
         if (!formData.dateOfBirth) {
-            newErrors.dateOfBirth = "יש לבחור תאריך לידה.";
+            newErrors.dateOfBirth = "Date of birth is required.";
         } else {
             const birthYear = new Date(formData.dateOfBirth).getFullYear();
             const currentYear = new Date().getFullYear();
             const age = currentYear - birthYear;
             if (age < 10 || age > 120) {
-                newErrors.dateOfBirth = "תאריך הלידה חייב להיות בין גיל 10 ל-120.";
+                newErrors.dateOfBirth = "Age must be between 10 and 120.";
             }
         }
         if (!formData.city) {
-            newErrors.city = "חובה להזין ערך לעיר.";
+            newErrors.city = "City is required.";
         }
         if (!formData.street) {
-            newErrors.street = "חובה להזין ערך לרחוב.";
+            newErrors.street = "Street is required.";
         }
         if (!formData.houseNumber || formData.houseNumber <= 0) {
-            newErrors.houseNumber = "מספר בית חייב להיות מספר חיובי.";
+            newErrors.houseNumber = "House number must be a positive number.";
         }
 
         setErrors(newErrors);
@@ -86,66 +91,66 @@ function EditDetails({ currentUser, onUpdateUser, onBackToProfile }) {
         e.preventDefault();
         if (validateForm()) {
             setErrors({});
-            // עדכון ב-localStorage
+            // Update in localStorage
             onUpdateUser(formData);
 
-            // עדכון ב-sessionStorage
+            // Update in sessionStorage
             sessionStorage.setItem("currentUser", JSON.stringify(formData));
 
-            alert("הפרטים עודכנו בהצלחה!");
-            onBackToProfile(); // חזרה לפרופיל לאחר עדכון
+            alert("Details updated successfully!");
+            onBackToProfile(); // Return to profile after update
         }
     };
 
     return (
         <form onSubmit={handleSubmit} style={{ textAlign: "center" }}>
-            <h2>עריכת פרטי משתמש</h2>
+            <h2>Edit User Details</h2>
 
-            <label>שם פרטי:</label>
+            <label>First Name:</label>
             <input
                 type="text"
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
-                placeholder="הזן שם פרטי"
+                placeholder="Enter first name"
             />
             {errors.firstName && <p style={{ color: "red" }}>{errors.firstName}</p>}
             <br />
 
-            <label>שם משפחה:</label>
+            <label>Last Name:</label>
             <input
                 type="text"
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
-                placeholder="הזן שם משפחה"
+                placeholder="Enter last name"
             />
             {errors.lastName && <p style={{ color: "red" }}>{errors.lastName}</p>}
             <br />
 
-            <label>שם משתמש:</label>
+            <label>Username:</label>
             <input
                 type="text"
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
-                placeholder="הזן שם משתמש"
+                placeholder="Enter username"
             />
             {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
             <br />
 
-            <label>סיסמה:</label>
+            <label>Password:</label>
             <input
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="הזן סיסמה"
+                placeholder="Enter password"
             />
             {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
             <br />
 
-            <label>אימייל:</label>
+            <label>Email:</label>
             <input
                 type="email"
                 name="email"
@@ -155,7 +160,7 @@ function EditDetails({ currentUser, onUpdateUser, onBackToProfile }) {
             />
             <br />
 
-            <label>תאריך לידה:</label>
+            <label>Date of Birth:</label>
             <input
                 type="date"
                 name="dateOfBirth"
@@ -165,55 +170,55 @@ function EditDetails({ currentUser, onUpdateUser, onBackToProfile }) {
             {errors.dateOfBirth && <p style={{ color: "red" }}>{errors.dateOfBirth}</p>}
             <br />
 
-            <label>עיר:</label>
+            <label>City:</label>
             <input
                 type="text"
                 name="city"
                 value={formData.city}
                 onChange={handleChange}
-                placeholder="הזן עיר"
+                placeholder="Enter city"
             />
             {errors.city && <p style={{ color: "red" }}>{errors.city}</p>}
             <br />
 
-            <label>רחוב:</label>
+            <label>Street:</label>
             <input
                 type="text"
                 name="street"
                 value={formData.street}
                 onChange={handleChange}
-                placeholder="הזן רחוב"
+                placeholder="Enter street"
             />
             {errors.street && <p style={{ color: "red" }}>{errors.street}</p>}
             <br />
 
-            <label>מספר בית:</label>
+            <label>House Number:</label>
             <input
                 type="number"
                 name="houseNumber"
                 value={formData.houseNumber}
                 onChange={handleChange}
-                placeholder="הזן מספר בית"
+                placeholder="Enter house number"
             />
             {errors.houseNumber && (
                 <p style={{ color: "red" }}>{errors.houseNumber}</p>
             )}
             <br />
-            <label>קישור למשחק אהוב:</label>
+
+            <label>Favorite Game Link:</label>
             <input
                 type="url"
                 name="favoriteGameLink"
                 value={formData.favoriteGameLink}
                 onChange={handleChange}
-                placeholder="הזן קישור למשחק האהוב"
+                placeholder="Enter favorite game link"
             />
             {errors.favoriteGameLink && (
                 <p style={{ color: "red" }}>{errors.favoriteGameLink}</p>
             )}
             <br />
-            <br />
-                
-            <label>תמונת פרופיל:</label>
+
+            <label>Profile Image:</label>
             <input
                 type="file"
                 name="profileImage"
@@ -222,23 +227,23 @@ function EditDetails({ currentUser, onUpdateUser, onBackToProfile }) {
             />
             {formData.profileImage && (
                 <div>
-                    <p>תצוגה מקדימה:</p>
+                    <p>Preview:</p>
                     <img
                         src={formData.profileImage}
-                        alt="תצוגה מקדימה"
+                        alt="Preview"
                         style={{ width: "150px", height: "150px", borderRadius: "50%" }}
                     />
                 </div>
             )}
             <br />
-            <button type="submit">עדכון</button>
+            <button type="submit">Update</button>
             <br />
             <button
                 type="button"
                 onClick={onBackToProfile}
                 style={{ marginTop: "10px" }}
             >
-                חזרה לפרופיל
+                Back to Profile
             </button>
         </form>
     );

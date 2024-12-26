@@ -13,17 +13,17 @@ function Register({ onRegister }) {
         city: "",
         street: "",
         houseNumber: "",
-        profileImage: null, // שדה לתמונה
+        profileImage: null, // Field for the profile image
     });
 
-    const [errors, setErrors] = useState({}); // שגיאות לפי שדה
+    const [errors, setErrors] = useState({}); // Store validation errors by field
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
         if (name === "profileImage" && files && files[0]) {
             const reader = new FileReader();
             reader.onload = () => {
-                setFormData({ ...formData, profileImage: reader.result }); // שמירת Base64
+                setFormData({ ...formData, profileImage: reader.result }); // Save Base64 image
             };
             reader.readAsDataURL(files[0]);
         } else {
@@ -31,20 +31,19 @@ function Register({ onRegister }) {
         }
     };
 
-
     const validateForm = () => {
         let newErrors = {};
 
-        // בדיקת שם משתמש
+        // Validate username
         if (
             !formData.username ||
             formData.username.length > 60 ||
             !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/.test(formData.username)
         ) {
-            newErrors.username = "שם משתמש חייב להכיל אותיות לועזיות בלבד, מספרים ותווים מיוחדים, ולא יעלה על 60 תווים.";
+            newErrors.username = "Username must contain only alphanumeric characters, special characters, and be no more than 60 characters.";
         }
 
-        // בדיקת סיסמה
+        // Validate password
         if (
             !formData.password ||
             formData.password.length < 7 ||
@@ -54,64 +53,65 @@ function Register({ onRegister }) {
             !/[@$!%*?&#]/.test(formData.password)
         ) {
             newErrors.password =
-                "סיסמה חייבת להיות בין 7 ל-12 תווים, להכיל לפחות אות גדולה, מספר ותו מיוחד.";
+                "Password must be between 7 and 12 characters, contain at least one uppercase letter, one number, and one special character.";
         }
 
-        // בדיקת אימות סיסמה
+        // Validate password confirmation
         if (formData.password !== formData.confirmPassword) {
-            newErrors.confirmPassword = "סיסמאות אינן תואמות.";
+            newErrors.confirmPassword = "Passwords do not match.";
         }
 
-        // בדיקת אימייל
+        // Validate email
         if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            newErrors.email = "אימייל לא תקין.";
+            newErrors.email = "Invalid email address.";
         }
 
-        // בדיקת שם פרטי
+        // Validate first name
         if (!formData.firstName || formData.firstName.length < 2) {
-            newErrors.firstName = "שם פרטי חייב להכיל לפחות שני תווים.";
+            newErrors.firstName = "First name must be at least 2 characters.";
         }
 
-        // בדיקת שם משפחה
+        // Validate last name
         if (!formData.lastName || formData.lastName.length < 2) {
-            newErrors.lastName = "שם משפחה חייב להכיל לפחות שני תווים.";
+            newErrors.lastName = "Last name must be at least 2 characters.";
         }
 
-        // בדיקת תאריך לידה
+        // Validate date of birth
         if (!formData.dateOfBirth) {
-            newErrors.dateOfBirth = "יש לבחור תאריך לידה.";
+            newErrors.dateOfBirth = "Date of birth is required.";
         } else {
             const birthYear = new Date(formData.dateOfBirth).getFullYear();
             const currentYear = new Date().getFullYear();
             const age = currentYear - birthYear;
             if (age < 10 || age > 120) {
-                newErrors.dateOfBirth = "תאריך הלידה חייב להיות בין גיל 10 ל-120.";
+                newErrors.dateOfBirth = "Age must be between 10 and 120.";
             }
         }
 
-        // בדיקת עיר
+        // Validate city
         if (!formData.city) {
-            newErrors.city = "חובה להזין ערך לעיר.";
+            newErrors.city = "City is required.";
         }
 
-        // בדיקת רחוב
+        // Validate street
         if (!formData.street) {
-            newErrors.street = "חובה להזין ערך לרחוב.";
+            newErrors.street = "Street is required.";
         }
 
-        // בדיקת מספר בית
+        // Validate house number
         if (!formData.houseNumber || formData.houseNumber <= 0) {
-            newErrors.houseNumber = "מספר בית חייב להיות מספר חיובי.";
+            newErrors.houseNumber = "House number must be a positive number.";
         }
 
-        // בדיקת תמונה
+        // Validate profile image
         if (!formData.profileImage) {
-            newErrors.profileImage = "יש להעלות תמונת פרופיל.";
+            newErrors.profileImage = "Profile image is required.";
         }
 
         setErrors(newErrors);
-        return Object.keys(newErrors).length === 0; // האם כל השדות תקינים
+        return Object.keys(newErrors).length === 0; // Check if all fields are valid
     };
+
     const saveImageToLocalStorage = (email, imageBase64) => {
         console.log("Saved Image in localStorage:", localStorage.getItem(`${formData.email}_profileImage`));
 
@@ -122,16 +122,14 @@ function Register({ onRegister }) {
             }
 
             try {
-                // שמירת התמונה ב-localStorage
+                // Save the image to localStorage
                 localStorage.setItem(`${email}_profileImage`, imageBase64);
-                resolve(imageBase64); // החזרת התמונה השמורה
+                resolve(imageBase64); // Return the saved image
             } catch (err) {
                 reject("Failed to save the image in localStorage.");
             }
         });
     };
-
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -142,22 +140,20 @@ function Register({ onRegister }) {
                     savedImage = await saveImageToLocalStorage(formData.email, formData.profileImage);
                 }
 
-                // עדכון פרטי המשתמש עם התמונה השמורה
+                // Update user details with the saved image
                 onRegister({ ...formData, profileImage: savedImage });
-                alert("נרשמת בהצלחה!");
+                alert("Registration successful!");
             } catch (error) {
                 console.error("Error saving image:", error);
-                alert("שגיאה בשמירת התמונה. נסה שוב.");
+                alert("Error saving the image. Please try again.");
             }
         }
     };
 
-
-
     return (
         <form onSubmit={handleSubmit}>
-            <h2>הרשמה</h2>
-            <label>שם משתמש:</label>
+            <h2>Register</h2>
+            <label>Username:</label>
             <input
                 type="text"
                 name="username"
@@ -167,7 +163,7 @@ function Register({ onRegister }) {
             {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
             <br />
 
-            <label>סיסמה:</label>
+            <label>Password:</label>
             <input
                 type="password"
                 name="password"
@@ -177,7 +173,7 @@ function Register({ onRegister }) {
             {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
             <br />
 
-            <label>אימות סיסמה:</label>
+            <label>Confirm Password:</label>
             <input
                 type="password"
                 name="confirmPassword"
@@ -189,7 +185,7 @@ function Register({ onRegister }) {
             )}
             <br />
 
-            <label>אימייל:</label>
+            <label>Email:</label>
             <input
                 type="email"
                 name="email"
@@ -199,7 +195,7 @@ function Register({ onRegister }) {
             {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
             <br />
 
-            <label>שם פרטי:</label>
+            <label>First Name:</label>
             <input
                 type="text"
                 name="firstName"
@@ -209,7 +205,7 @@ function Register({ onRegister }) {
             {errors.firstName && <p style={{ color: "red" }}>{errors.firstName}</p>}
             <br />
 
-            <label>שם משפחה:</label>
+            <label>Last Name:</label>
             <input
                 type="text"
                 name="lastName"
@@ -219,7 +215,7 @@ function Register({ onRegister }) {
             {errors.lastName && <p style={{ color: "red" }}>{errors.lastName}</p>}
             <br />
 
-            <label>תאריך לידה:</label>
+            <label>Date of Birth:</label>
             <input
                 type="date"
                 name="dateOfBirth"
@@ -229,7 +225,7 @@ function Register({ onRegister }) {
             {errors.dateOfBirth && <p style={{ color: "red" }}>{errors.dateOfBirth}</p>}
             <br />
 
-            <label>עיר:</label>
+            <label>City:</label>
             <input
                 type="text"
                 name="city"
@@ -239,7 +235,7 @@ function Register({ onRegister }) {
             {errors.city && <p style={{ color: "red" }}>{errors.city}</p>}
             <br />
 
-            <label>רחוב:</label>
+            <label>Street:</label>
             <input
                 type="text"
                 name="street"
@@ -249,7 +245,7 @@ function Register({ onRegister }) {
             {errors.street && <p style={{ color: "red" }}>{errors.street}</p>}
             <br />
 
-            <label>מספר בית:</label>
+            <label>House Number:</label>
             <input
                 type="number"
                 name="houseNumber"
@@ -261,21 +257,20 @@ function Register({ onRegister }) {
             )}
             <br />
 
-            <label>קישור למשחק אהוב:</label>
+            <label>Favorite Game Link:</label>
             <input
                 type="url"
                 name="favoriteGameLink"
                 value={formData.favoriteGameLink || ""}
                 onChange={handleChange}
-                placeholder="הזן קישור למשחק אהוב"
+                placeholder="Enter favorite game link"
             />
             {errors.favoriteGameLink && (
                 <p style={{ color: "red" }}>{errors.favoriteGameLink}</p>
             )}
             <br />
 
-
-            <label>תמונת פרופיל:</label>
+            <label>Profile Image:</label>
             <input
                 type="file"
                 name="profileImage"
@@ -288,10 +283,10 @@ function Register({ onRegister }) {
             <br />
 
             {Object.keys(errors).length > 0 && (
-                <p style={{ color: "red" }}>נא לתקן את כל השגיאות.</p>
+                <p style={{ color: "red" }}>Please fix all errors.</p>
             )}
 
-            <button type="submit">הרשמה</button>
+            <button type="submit">Register</button>
         </form>
     );
 }

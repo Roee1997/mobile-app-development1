@@ -1,0 +1,261 @@
+/* General styling for user components */
+.user-container {
+    margin: 20px auto;
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Titles */
+  .user-container h2, .dynamic-container h2{
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Labels */
+  .user-container label{
+    display: block;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  
+  /* Input fields */
+  .user-container input[type="text"],
+  .user-container input[type="password"],
+  .user-container input[type="email"],
+  .user-container input[type="date"],
+  .user-container input[type="number"],
+  .user-container input[type="url"],
+  .user-container input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+  }
+  
+  /* Input focus effect */
+  .user-container input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* Buttons */
+  .user-container button, .dynamic-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Button hover effect */
+  .user-container button:hover, .dynamic-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Button active effect */
+  .user-container button:active, .dynamic-container button:active {
+    background-color: #004085;
+  }
+  
+  /* Profile image */
+  .user-container img, .dynamic-container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Error messages */
+  .user-container p {
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+  .user-container p[style*="color: red"] {
+    color: red;
+    font-size: 12px;
+  }
+  
+  /* Links for favorite game */
+  .user-container button[style*="color: gray"] {
+    color: gray;
+    background-color: #f5f5f5;
+  }
+  
+  .user-container button[style*="color: gray"]:hover {
+    background-color: #e0e0e0;
+  }
+  
+
+  /* Styling the form container */
+form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Label styling */
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Input and textarea styling */
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form input[type="date"],
+form input[type="number"],
+form input[type="url"],
+form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #fff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styling */
+form button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* Error messages styling */
+form p {
+  color: red;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+/* Image preview styling */
+form img {
+  display: block;
+  margin: 10px auto;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+/* Styling for profile container */
+.profile-container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+  
+  /* Header styling */
+  .profile-container h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Profile image styling */
+  .profile-container img {
+    display: block;
+    margin: 0 auto 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+  }
+  
+  /* Info table styling */
+  .profile-info {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+  }
+  
+  .profile-info td {
+    padding: 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+    color: #555;
+  }
+  
+  .profile-info td:first-child {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Buttons styling */
+  .profile-container button {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .profile-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Gray message styling */
+  .profile-container p[style*="color: gray"] {
+    color: #999;
+    font-style: italic;
+  }
+  

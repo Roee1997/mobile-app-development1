@@ -6,14 +6,13 @@ import EditDetails from "./comps/user/EditDetails";
 import SystemAdmin from "./comps/admin/SystemAdmin";
 import './App.css'
 
-
 function App() {
   const [currentView, setCurrentView] = useState("login");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [users, setUsers] = useState([]);
 
-  // טען את מצב המשתמש המחובר מ-sessionStorage בעת טעינת האפליקציה
+  // Load the logged-in user's state from sessionStorage when the app loads
   useEffect(() => {
     const user = sessionStorage.getItem("currentUser");
     const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
@@ -23,14 +22,14 @@ function App() {
       const parsedUser = JSON.parse(user);
       setIsLoggedIn(true);
       setCurrentUser(parsedUser);
-      setCurrentView(parsedUser.role === "admin" ? "admin" : "profile"); // מעבר לעמוד בהתאם לתפקיד
+      setCurrentView(parsedUser.role === "admin" ? "admin" : "profile"); // Navigate to the appropriate page based on the role
     } else {
       setIsLoggedIn(false);
-      setCurrentView("login"); // דף התחברות כברירת מחדל
+      setCurrentView("login"); // Default to login page
     }
   }, []);
 
-  // התחברות
+  // Login function
   const handleLogin = (user) => {
     sessionStorage.setItem("currentUser", JSON.stringify(user));
     setIsLoggedIn(true);
@@ -38,7 +37,7 @@ function App() {
     setCurrentView(user.role === "admin" ? "admin" : "profile");
   };
 
-  // התנתקות
+  // Logout function
   const handleLogout = () => {
     sessionStorage.removeItem("currentUser");
     setIsLoggedIn(false);
@@ -46,7 +45,7 @@ function App() {
     setCurrentView("login");
   };
 
-  // ניווט לעריכת פרטים
+  // Navigate to edit details
   const handleEditDetails = () => {
     setCurrentView("editDetails");
   };
@@ -57,7 +56,7 @@ function App() {
     );
     localStorage.setItem("users", JSON.stringify(updatedUsers));
     setUsers(updatedUsers);
-    setCurrentUser(updatedUser); // עדכון המשתמש הנוכחי
+    setCurrentUser(updatedUser); // Update the current user
   };
 
   const handleDeleteUser = (email) => {
@@ -80,27 +79,24 @@ function App() {
   return (
     <div style={{ textAlign: "center", margin: "20px" }}>
 
-      
-
-      {/* תפריט ניווט */}
+      {/* Navigation menu */}
       <nav>
         {!isLoggedIn && (
           <>
             <button id="login-button" onClick={() => setCurrentView("login")}>
-              התחברות
+              Login
             </button>
             <button id="register-button" onClick={() => setCurrentView("register")}>
-              הרשמה
+              Register
             </button>
-
           </>
         )}
         {isLoggedIn && (
-          <button onClick={handleLogout}>התנתק</button>
+          <button onClick={handleLogout}>Logout</button>
         )}
       </nav>
 
-      {/* תצוגה דינמית */}
+      {/* Dynamic display */}
       <div className="dynamic-container">
         {currentView === "login" && <Login onLogin={handleLogin} />}
         {currentView === "register" && <Register onRegister={handleRegister} />}
